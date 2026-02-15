@@ -1,0 +1,12 @@
+-- Minimal admins table schema for admin panel
+-- Run in MySQL: SOURCE schema.sql
+
+CREATE TABLE IF NOT EXISTS admins (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(100) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- To create an admin securely, run the CLI helper:
+-- php create_admin.php admin_username strongPasswordHere
