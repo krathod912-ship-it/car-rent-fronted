@@ -3,6 +3,15 @@ $pageTitle = 'Home';
 include __DIR__ . '/partials/header.php';
 ?>
 
+<?php if (isset($_GET['logout']) && $_GET['logout'] === 'success'): ?>
+<div class="container mt-3">
+    <div class="alert alert-success alert-dismissible fade show">
+        You have been logged out successfully.
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+</div>
+<?php endif; ?>
+
 <!-- Hero Section -->
 <section class="hero-section d-flex align-items-center text-light">
     <div class="container">
@@ -42,19 +51,18 @@ include __DIR__ . '/partials/header.php';
 <!-- Quick Search Strip -->
 <section class="py-4 bg-body-tertiary border-bottom">
     <div class="container">
-        <!-- Submitting this form just opens the Search & Filter page (no JS, demo only) -->
-        <form class="row g-3 align-items-end quick-search-form" method="get" action="search.php">
+        <form id="quickSearchForm" class="row g-3 align-items-end quick-search-form" method="get" action="search.php" novalidate>
             <div class="col-md-3">
-                <label class="form-label">Pickup Location</label>
-                <input type="text" class="form-control" placeholder="e.g., MG Road, Bangalore" required />
+                <label class="form-label" for="pickupLocation">Pickup Location</label>
+                <input type="text" class="form-control" id="pickupLocation" name="location" placeholder="e.g., MG Road, Bangalore" />
             </div>
             <div class="col-md-3">
-                <label class="form-label">Pickup Date</label>
-                <input type="date" class="form-control" required />
+                <label class="form-label" for="pickupDate">Pickup Date</label>
+                <input type="date" class="form-control" id="pickupDate" name="pickup_date" />
             </div>
             <div class="col-md-3">
-                <label class="form-label">Drop Date</label>
-                <input type="date" class="form-control" required />
+                <label class="form-label" for="dropDate">Drop Date</label>
+                <input type="date" class="form-control" id="dropDate" name="drop_date" />
             </div>
             <div class="col-md-3 d-grid">
                 <button type="submit" class="btn btn-primary">Search Cars</button>
@@ -144,122 +152,35 @@ include __DIR__ . '/partials/header.php';
         <h2 class="fw-bold text-center mb-5">Our Vehicle Categories</h2>
         <div class="row g-4 mb-5">
             <!-- City Car -->
-            <div class="col-lg-3 col-md-6">
-                <div class="vehicle-category-card h-100">
-                    <div class="vehicle-image mb-3">
-                        <img src="assets/images/city-car.png" alt="City Car" class="img-fluid rounded-3">
-                    </div>
-                    <h4 class="fw-bold">City car</h4>
-                    <p class="text-muted mb-3">
-                        These range from compact and fuel-efficient city to eco-friendly model
-                    </p>
-                    <a href="search.php" class="see-more-link text-success fw-bold">See more →</a>
-                </div>
-            </div>
-
-            <!-- Premium -->
-            <div class="col-lg-3 col-md-6">
-                <div class="vehicle-category-card h-100">
-                    <div class="vehicle-image mb-3">
-                        <img src="assets/images/premium-car.png" alt="Premium" class="img-fluid rounded-3">
-                    </div>
-                    <h4 class="fw-bold">Premium</h4>
-                    <p class="text-muted mb-3">
-                        You can choose from a wide range of premium vehicles made by legendary manufacturers
-                    </p>
-                    <a href="search.php" class="see-more-link text-success fw-bold">See more →</a>
-                </div>
-            </div>
-
-            <!-- Electric -->
-            <div class="col-lg-3 col-md-6">
-                <div class="vehicle-category-card h-100">
-                    <div class="vehicle-image mb-3">
-                        <img src="assets/images/electric-car.png" alt="Electric" class="img-fluid rounded-3">
-                    </div>
-                    <h4 class="fw-bold">Electric</h4>
-                    <p class="text-muted mb-3">
-                        Discover our models of electric, hybrid or plug-in vehicles
-                    </p>
-                    <a href="search.php" class="see-more-link text-success fw-bold">See more →</a>
-                </div>
-            </div>
-
-            <!-- Vans & Trucks -->
-            <div class="col-lg-3 col-md-6">
-                <div class="vehicle-category-card h-100">
-                    <div class="vehicle-image mb-3">
-                            <img src="assets/images/van.png" alt="Vans & Trucks" class="img-fluid rounded-3">
-                    </div>
-                    <h4 class="fw-bold">Vans & Trucks</h4>
-                    <p class="text-muted mb-3">
-                        You're looking for a SUV for your business or leisure trip?
-                    </p>
-                    <a href="search.php" class="see-more-link text-success fw-bold">See more →</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Features & Benefits Section -->
-<section class="py-5">
-    <div class="container">
-        <div class="row g-4 mb-5">
-            <!-- Feature 1: Discounts -->
             <div class="col-lg-4 col-md-6">
-                <div class="feature-benefit-card text-center h-100">
-                    <div class="feature-icon mb-4">
-                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15 10h30v20H15z" stroke="#212529" stroke-width="2" fill="none"/>
-                            <circle cx="25" cy="20" r="3" fill="#212529"/>
-                            <circle cx="35" cy="20" r="3" fill="#212529"/>
-                        </svg>
-                    </div>
-                    <h4 class="fw-bold mb-3">Discounts and benefits</h4>
-                    <p class="text-muted mb-0">
-                        Become a Privilege For You member
+                <div class="vehicle-category-card h-100">
+                    <h4 class="fw-bold mb-3">City car</h4>
+                    <p class="text-muted mb-3">
+                        Compact, fuel-efficient, and perfect for navigating busy city streets. Choose from Tata Nexon, Maruti Baleno, and Hyundai i20.
                     </p>
-                    <button class="btn btn-warning mt-3 fw-bold w-100">Privilege For You Specific Terms</button>
+                    <a href="search.php?type=city" class="see-more-link text-success fw-bold">See more →</a>
                 </div>
             </div>
 
-            <!-- Feature 2: Weekly/Monthly -->
+            <!-- Luxury Car -->
             <div class="col-lg-4 col-md-6">
-                <div class="feature-benefit-card text-center h-100">
-                    <div class="feature-icon mb-4">
-                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="10" y="15" width="40" height="30" stroke="#212529" stroke-width="2" fill="none" rx="2"/>
-                            <line x1="15" y1="20" x2="45" y2="20" stroke="#212529" stroke-width="1"/>
-                            <line x1="15" y1="25" x2="45" y2="25" stroke="#212529" stroke-width="1"/>
-                            <circle cx="20" cy="35" r="2" fill="#212529"/>
-                            <circle cx="30" cy="35" r="2" fill="#212529"/>
-                            <circle cx="40" cy="35" r="2" fill="#212529"/>
-                        </svg>
-                    </div>
-                    <h4 class="fw-bold mb-3">Daily, weekly or monthly</h4>
-                    <p class="text-muted mb-0">
-                        Rent a car as long as you need
+                <div class="vehicle-category-card h-100">
+                    <h4 class="fw-bold mb-3">Luxury Car</h4>
+                    <p class="text-muted mb-3">
+                        Experience premium comfort and style with our luxury collection. BMW X5, Mercedes C-Class, and Audi A4 await you.
                     </p>
-                    <button class="btn btn-warning mt-3 fw-bold w-100">Book now</button>
+                    <a href="search.php?type=luxury" class="see-more-link text-success fw-bold">See more →</a>
                 </div>
             </div>
 
-            <!-- Feature 3: Online Check-in -->
+            <!-- Family Car -->
             <div class="col-lg-4 col-md-6">
-                <div class="feature-benefit-card text-center h-100">
-                    <div class="feature-icon mb-4">
-                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="15" y="20" width="30" height="25" stroke="#212529" stroke-width="2" fill="none" rx="2"/>
-                            <line x1="30" y1="25" x2="30" y2="35" stroke="#212529" stroke-width="2"/>
-                            <line x1="25" y1="30" x2="35" y2="30" stroke="#212529" stroke-width="2"/>
-                        </svg>
-                    </div>
-                    <h4 class="fw-bold mb-3">Online check-in</h4>
-                    <p class="text-muted mb-0">
-                        Get on the road as fast as possible
+                <div class="vehicle-category-card h-100">
+                    <h4 class="fw-bold mb-3">Family Car</h4>
+                    <p class="text-muted mb-3">
+                        Spacious 7-seater vehicles for comfortable family trips. Toyota Innova, Mahindra XUV700, and Kia Carens available.
                     </p>
-                    <button class="btn btn-warning mt-3 fw-bold w-100">Check in now</button>
+                    <a href="search.php?type=family" class="see-more-link text-success fw-bold">See more →</a>
                 </div>
             </div>
         </div>

@@ -136,7 +136,7 @@ include __DIR__ . '/partials/header.php';
                                 <button class="btn btn-primary" type="button">Send</button>
                             </div>
                             <p class="small text-muted mt-2 mb-0">
-                                Messages are not saved in CIE‑1; this is a front-end UI demo only.
+                                Messages are not saved; this is a front-end UI demo only.
                             </p>
                         </form>
                     </div>

@@ -242,6 +242,44 @@ $(document).ready(function() {
         }
     });
     
+    // ========== QUICK SEARCH FORM VALIDATION (Homepage) ==========
+    $('#quickSearchForm').on('submit', function(e) {
+        let isValid = true;
+        
+        $('.error-message').remove();
+        $('#quickSearchForm input').removeClass('is-invalid');
+        
+        const pickupLocation = $('#pickupLocation').val().trim();
+        const pickupDate = $('#pickupDate').val();
+        const dropDate = $('#dropDate').val();
+        
+        if (!pickupLocation) {
+            showError($('#pickupLocation'), 'Pickup location is required');
+            isValid = false;
+        } else if (pickupLocation.length < 3) {
+            showError($('#pickupLocation'), 'Please enter a valid location (at least 3 characters)');
+            isValid = false;
+        }
+        
+        if (!pickupDate) {
+            showError($('#pickupDate'), 'Pickup date is required');
+            isValid = false;
+        }
+        
+        if (!dropDate) {
+            showError($('#dropDate'), 'Drop date is required');
+            isValid = false;
+        } else if (pickupDate && new Date(dropDate) <= new Date(pickupDate)) {
+            showError($('#dropDate'), 'Drop date must be after pickup date');
+            isValid = false;
+        }
+        
+        if (!isValid) {
+            e.preventDefault();
+            return false;
+        }
+    });
+    
     // ========== SEARCH & FILTER FORM VALIDATION ==========
     $('#searchForm').on('submit', function(e) {
         let isValid = true;
@@ -302,9 +340,10 @@ $(document).ready(function() {
         }
     });
     
-    // Text fields - remove error on focus
-    $(document).on('focus', 'input[type="text"], input[type="email"], input[type="password"], input[type="tel"]', function() {
+    // Text and date fields - remove error on focus
+    $(document).on('focus', 'input[type="text"], input[type="email"], input[type="password"], input[type="tel"], input[type="date"], input[type="datetime-local"]', function() {
         $(this).next('.error-message').remove();
+        $(this).removeClass('is-invalid');
     });
     
 });

@@ -1,5 +1,5 @@
 <?php
-// Database connection (PDO) for admin panel
+// Database connection (PDO) for admin panel and user auth
 // Update these settings to match your environment
 $DB_HOST = '127.0.0.1';
 $DB_NAME = 'car_rental';
@@ -13,15 +13,11 @@ $options = [
     PDO::ATTR_EMULATE_PREPARES => false,
 ];
 
-// Default to null so callers can detect failure without an abrupt die()
 $pdo = null;
 try {
     $pdo = new PDO($dsn, $DB_USER, $DB_PASS, $options);
 } catch (PDOException $e) {
-    // Log the real error for the developer (server logs), but do not echo it to users
     error_log('DB connection failed: ' . $e->getMessage());
-    // Return null to allow the caller to handle the outage gracefully
-    return null;
 }
 
 return $pdo;
